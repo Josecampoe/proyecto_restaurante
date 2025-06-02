@@ -57,6 +57,7 @@ const theme = createTheme({
 
 function App() {
   const [tabActual, setTabActual] = useState(0);
+  const [error, setError] = useState(null);
 
   const cambiarTab = (event, nuevoValor) => {
     setTabActual(nuevoValor);
@@ -80,6 +81,16 @@ function App() {
     window.addEventListener('editarPedido', handleEditarPedido);
     return () => window.removeEventListener('editarPedido', handleEditarPedido);
   }, []);
+
+  if (error) {
+    return (
+      <ThemeProvider theme={theme}>
+        <Box sx={{ p: 3, color: 'error.main' }}>
+          <Typography variant="h6">Error: {error.message}</Typography>
+        </Box>
+      </ThemeProvider>
+    );
+  }
 
   return (
     <ThemeProvider theme={theme}>
